@@ -1,0 +1,28 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'loststoic'
+theme = 'ice'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = false
+        title = false
+
+[params]
+  description = "digital thoughts // system logs // human.exe"
+  # github = "https://github.com/yourusername"
+  # twitter = "https://twitter.com/yourusername"
+
+[menu]
+  [[menu.main]]
+    name = "Archive"
+    url = "/posts/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2

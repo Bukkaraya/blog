@@ -1,0 +1,50 @@
+<div class="mt-20 p-6" style="background-color: var(--term-surface); border: 1px solid var(--term-border);">
+    <div class="flex items-center gap-2 text-sm">
+        <span style="color: var(--term-primary);">guest@{{ .Site.Title | default "nexus" | lower }}</span>
+        <span style="color: var(--term-muted);">:</span>
+        <span style="color: var(--term-accent);">~</span>
+        <span style="color: var(--term-secondary);">$</span>
+        <span id="footer-message" class="ml-2" style="color: var(--term-muted);">echo "thanks for visiting"</span>
+        <span class="w-2 h-4 ml-1" style="background-color: var(--term-primary); animation: blink-caret 0.75s step-end infinite;"></span>
+    </div>
+</div>
+
+<footer class="mt-16 pt-8" style="border-top: 1px solid var(--term-border);">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-xs" style="color: var(--term-muted);">
+        <div class="flex items-center gap-6">
+            {{ with .Site.Params.github }}<a href="{{ . }}" class="transition-colors" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">GitHub</a>{{ end }}
+            {{ with .Site.Params.twitter }}<a href="{{ . }}" class="transition-colors" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">Twitter</a>{{ end }}
+            <a href="/index.xml" class="transition-colors" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">RSS</a>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full animate-pulse" style="background-color: var(--term-primary);"></span>
+            <span>SYSTEM ONLINE</span>
+            <span class="mx-2" style="color: var(--term-border);">|</span>
+            <span>&copy; {{ now.Year }}</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var messages = [
+        'echo "thanks for visiting"',
+        'echo "stay curious"',
+        'echo "EOF"',
+        'echo "keep building"',
+        'echo "happy hacking"'
+    ];
+    var el = document.getElementById('footer-message');
+    if (!el) return;
+    var i = 0;
+    setInterval(function() {
+        i = (i + 1) % messages.length;
+        el.style.opacity = '0';
+        setTimeout(function() {
+            el.textContent = messages[i];
+            el.style.opacity = '1';
+        }, 300);
+    }, 4000);
+    el.style.transition = 'opacity 0.3s ease';
+})();
+</script>

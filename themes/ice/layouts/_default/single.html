@@ -1,0 +1,72 @@
+{{ define "main" }}
+<div id="progress-bar" style="position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(to right, var(--term-primary), var(--term-accent)); z-index: 200; transition: width 0.1s linear;"></div>
+<article>
+    <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+            <a href="/" class="text-sm transition-colors" style="color: var(--term-muted);" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">&larr; back</a>
+        </div>
+
+        <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs font-semibold" style="color: var(--term-accent);">{{ .Date.Format "2006.01.02" }}</span>
+            <span style="color: var(--term-muted);">&bull;</span>
+            <span class="text-xs" style="color: var(--term-muted);">{{ .ReadingTime }} min read</span>
+            {{ if .Draft }}
+            <span class="px-2 py-0.5 text-[10px]" style="background-color: color-mix(in srgb, var(--term-primary) 20%, transparent); color: var(--term-primary); border: 1px solid color-mix(in srgb, var(--term-primary) 30%, transparent);">DRAFT</span>
+            {{ end }}
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-display tracking-tight mb-4 gradient-text">{{ .Title }}</h1>
+
+        {{ with .Params.image }}
+        <div class="mt-6 mb-2 overflow-hidden rounded-lg" style="border: 1px solid var(--term-border);">
+            <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-auto" style="max-height: 400px; object-fit: cover;">
+        </div>
+        {{ end }}
+
+        {{ with .Params.tags }}
+        <div class="flex flex-wrap gap-2 mt-4">
+            {{ range . }}
+            <span class="px-3 py-1 text-xs transition-colors" style="border: 1px solid var(--term-border); color: var(--term-muted);">{{ . }}</span>
+            {{ end }}
+        </div>
+        {{ end }}
+    </header>
+
+    <div class="prose max-w-none leading-relaxed">
+        {{ .Content }}
+    </div>
+
+    <div class="mt-16 pt-8" style="border-top: 1px solid var(--term-border);">
+        <div class="flex justify-between items-center text-sm">
+            {{ with .PrevInSection }}
+            <a href="{{ .RelPermalink }}" class="transition-colors" style="color: var(--term-muted);" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">
+                &larr; {{ .Title | truncate 30 }}
+            </a>
+            {{ else }}
+            <span></span>
+            {{ end }}
+
+            {{ with .NextInSection }}
+            <a href="{{ .RelPermalink }}" class="transition-colors" style="color: var(--term-muted);" onmouseover="this.style.color='var(--term-primary)';" onmouseout="this.style.color='var(--term-muted)';">
+                {{ .Title | truncate 30 }} &rarr;
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</article>
+
+<script>
+(function() {
+    var bar = document.getElementById('progress-bar');
+    var article = document.querySelector('article');
+    if (!bar || !article) return;
+    window.addEventListener('scroll', function() {
+        var rect = article.getBoundingClientRect();
+        var total = article.scrollHeight - window.innerHeight;
+        var scrolled = -rect.top;
+        var pct = Math.min(Math.max((scrolled / total) * 100, 0), 100);
+        bar.style.width = pct + '%';
+    }, { passive: true });
+})();
+</script>
+{{ end }}

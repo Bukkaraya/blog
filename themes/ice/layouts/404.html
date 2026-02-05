@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="flex flex-col items-center justify-center py-20 text-center">
+    <div class="mb-8">
+        <span class="text-8xl md:text-9xl font-display gradient-text">404</span>
+    </div>
+
+    <div class="max-w-md mx-auto p-6 neon-border" style="border: 1px solid var(--term-border); background-color: var(--term-surface);">
+        <div class="text-left space-y-3 text-sm" style="font-family: 'IBM Plex Mono', monospace;">
+            <div>
+                <span style="color: var(--term-primary);">guest@nexus</span><span style="color: var(--term-muted);">:</span><span style="color: var(--term-accent);">~</span><span style="color: var(--term-secondary);">$</span>
+                <span style="color: var(--term-muted);"> cat {{ .RelPermalink }}</span>
+            </div>
+            <div style="color: #ef4444;">
+                ERROR: No such file or directory
+            </div>
+            <div style="color: var(--term-muted);">
+                The requested path does not exist in this system.
+            </div>
+            <div class="flex items-center">
+                <span style="color: var(--term-primary);">guest@nexus</span><span style="color: var(--term-muted);">:</span><span style="color: var(--term-accent);">~</span><span style="color: var(--term-secondary);">$</span>
+                <span class="w-2 h-4 ml-2 animate-pulse" style="background-color: var(--term-primary);"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <a href="/" class="inline-flex items-center gap-2 px-6 py-3 text-sm transition-all duration-300 neon-border" style="border: 1px solid var(--term-primary); color: var(--term-primary);" onmouseover="this.style.backgroundColor='var(--term-primary)';this.style.color='var(--term-bg)';" onmouseout="this.style.backgroundColor='transparent';this.style.color='var(--term-primary)';">
+            <span>&larr;</span>
+            <span>RETURN HOME</span>
+        </a>
+    </div>
+</div>
+{{ end }}

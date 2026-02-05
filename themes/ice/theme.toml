@@ -1,0 +1,11 @@
+name = "Ice"
+license = "MIT"
+licenselink = "https://github.com/yourname/ice/blob/main/LICENSE"
+description = "A terminal-inspired Hugo theme with an icy blue color palette"
+homepage = "https://github.com/yourname/ice"
+tags = ["terminal", "minimal", "dark", "blog"]
+features = ["blog", "responsive", "terminal"]
+min_version = "0.146.0"
+
+[author]
+  name = "Your Name"

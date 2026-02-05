@@ -1,0 +1,50 @@
+<header class="mb-16">
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-4">
+            <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: var(--term-primary);"></div>
+            <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: var(--term-accent); animation-delay: 0.2s;"></div>
+            <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: var(--term-secondary); animation-delay: 0.4s;"></div>
+            <span class="text-xs ml-2" style="color: var(--term-muted);">~/blog</span>
+        </div>
+        <button onclick="toggleTheme()" class="px-3 py-1 text-xs border rounded transition-colors" style="border-color: var(--term-border); color: var(--term-muted);" onmouseover="this.style.borderColor='var(--term-primary)';this.style.color='var(--term-primary)';" onmouseout="this.style.borderColor='var(--term-border)';this.style.color='var(--term-muted)';">
+            <span class="theme-icon-dark">☀ light</span>
+            <span class="theme-icon-light">☾ dark</span>
+        </button>
+    </div>
+
+    <h1 class="font-display text-6xl md:text-8xl tracking-tight mb-4 flicker">
+        <a href="/" class="gradient-text">{{ .Site.Title | default "NEXUS" }}</a>
+    </h1>
+
+    <div class="flex items-center gap-4 text-sm">
+        <span style="color: var(--term-primary);">&gt;</span>
+        <p style="color: var(--term-muted);">{{ .Site.Params.description | default "digital thoughts // system logs // human.exe" }}</p>
+    </div>
+</header>
+
+<nav class="mb-16 p-1 neon-border" style="border: 1px solid var(--term-border); background-color: color-mix(in srgb, var(--term-surface) 50%, transparent);">
+    <div class="flex flex-col sm:flex-row">
+        <a href="/" class="px-6 py-3 text-sm transition-colors nav-link" style="border-bottom: 1px solid var(--term-border); border-right: none; color: {{ if .IsHome }}var(--term-primary){{ else }}var(--term-muted){{ end }};">
+            <span class="hidden sm:inline" style="color: var(--term-muted); margin-right: 0.5rem;">01</span>HOME
+        </a>
+        {{ $currentURL := $.RelPermalink }}
+        {{ range .Site.Menus.main }}
+        {{ $isActive := hasPrefix $currentURL .URL }}
+        <a href="{{ .URL }}" class="px-6 py-3 text-sm transition-colors nav-link" style="border-bottom: 1px solid var(--term-border); border-right: none; color: {{ if $isActive }}var(--term-primary){{ else }}var(--term-muted){{ end }};">
+            <span class="hidden sm:inline" style="margin-right: 0.5rem;">{{ printf "%02d" (add .Weight 1) }}</span>{{ .Name | upper }}
+        </a>
+        {{ end }}
+    </div>
+</nav>
+
+<style>
+    [data-theme="dark"] .theme-icon-light { display: none; }
+    [data-theme="light"] .theme-icon-dark { display: none; }
+    [data-theme="light"] .theme-icon-light { display: inline; }
+    [data-theme="dark"] .theme-icon-dark { display: inline; }
+    .nav-link:hover { color: var(--term-primary) !important; }
+    @media (min-width: 640px) {
+        .nav-link { border-bottom: none !important; border-right: 1px solid var(--term-border) !important; }
+        .nav-link:last-child { border-right: none !important; }
+    }
+</style>
